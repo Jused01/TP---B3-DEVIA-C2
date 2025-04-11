@@ -1,0 +1,22 @@
+<div class="books-container">
+  <div *ngIf="books && books.length > 0; else noBooks">
+    <div class="book-card" *ngFor="let book of books">
+      <div class="book-info">
+        <h2 [appHighlight]="book.isFavorite">{{ book.title }}</h2>
+        <p>{{ book.author }}</p>
+        <p>{{ book.description | slice:0:20 }}...</p>
+        <p>Catégorie: {{ book.category }}</p>
+        <p>Note: {{ book.rating }}</p>
+        <p>Favori: {{ book.isFavorite ? 'Oui' : 'Non' }}</p>
+      </div>
+      <div class="book-actions">
+        <button routerLink="/books/{{book.id}}">Détails</button>
+        <button (click)="toggleFavorite(book)">{{ book.isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }}</button>
+        <button (click)="deleteBook(book.id)">Supprimer</button>
+      </div>
+    </div>
+  </div>
+  <ng-template #noBooks>
+    <p>Aucun livre dans votre bibliothèque. Commencez par en ajouter un!</p>
+  </ng-template>
+</div>
